@@ -48,6 +48,6 @@ public class FirstActivity extends ActionBarActivity {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected();
     }
 }
