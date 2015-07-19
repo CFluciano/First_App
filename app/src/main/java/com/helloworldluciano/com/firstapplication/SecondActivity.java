@@ -18,7 +18,7 @@ public class SecondActivity extends ActionBarActivity {
         String message_willkommen = "string/willkommen";
         String message = intent.getStringExtra(MESSAGE_KEY);
         TextView textView = new TextView(this);
-        textView.setTextSize(45);
+        textView.setTextSize(40);
         textView.setText(message_willkommen+message);
         setContentView(textView);
         //setContentView(R.layout.second_layout);
@@ -27,7 +27,7 @@ public class SecondActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_second, menu);
+        getMenuInflater().inflate(R.menu.menu_second,menu);
         return true;
     }
 
