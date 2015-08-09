@@ -10,21 +10,40 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter your name:"
+        android:text="News verfassen und speichern:"
         android:id="@+id/greeting_text_view"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/greeting_text_view"
-        android:id="@+id/typing_message"
+        android:layout_below="@id/greeting_text_view"
+        android:id="@+id/news"
         android:hint="@string/hint_Message"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter .."
-        android:layout_below="@+id/typing_message"
+        android:text="Speichern .."
+        android:layout_below="@+id/news"
+        android:id="@+id/insert"
         android:onClick="showGreetings"
         />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Liste .."
+        android:layout_below="@+id/insert"
+        android:id="@+id/list"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fertig"
+        android:layout_below="@+id/list"
+        android:id="@+id/out"
+        />
+
+
+
 
 </RelativeLayout>
