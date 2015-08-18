@@ -6,5 +6,6 @@
     <string name="hint_Message">.....</string>
     <string name="title_activity_second">Welcome</string>
     <string name="willkommen">Willkommen (m/w):</string>
+    <string name="title_activity_news_list">NewsListActivity</string>
 
 </resources>

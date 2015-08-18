@@ -14,68 +14,64 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.util.Log;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 public class FirstActivity extends ActionBarActivity {
     EditText KEY_NEWS,NEWS;
     String key_news,news;
     Button REG;
     Button OUT;
+    Button DEL;
     Button LISTE_ALLES;
     Context ctx = this;
-//    public final static String MESSAGE_KEY="com.helloworldluciano.com.firstapplication.message_key";
 
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Toast.makeText(getBaseContext(), "On create ", Toast.LENGTH_LONG).show();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.first_layout);
         //KEY_NEWS = (EditText) findViewById(R.id.key_news);
         NEWS = (EditText) findViewById(R.id.news);
-        LISTE_ALLES = (Button) findViewById(R.id.list);
+        //LISTE_ALLES = (Button) findViewById(R.id.list);
         REG = (Button) findViewById(R.id.insert);
         OUT = (Button) findViewById(R.id.out);
+        //DEL = (Button) findViewById(R.id.del);
         addData();
-        viewAll();
+        //viewAll();
         endApp();
     }
-    public String DROP_TABLE_1 = "DROP TABLE "+ TableData.TableInfo.TABLE_NAME;
     public void addData() {
         REG.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
+               public void onClick(View v) {
                //key_news = KEY_NEWS.getText().toString();
                news = NEWS.getText().toString();
-               //if (!(Integer.parseInt(key_news)))
-               //
-               //   Toast.makeText(getBaseContext(),"nicht richtich",Toast.LENGTH_LONG).show();
-               //   KEY_NEWS.setText("");
-               //
-               //else
-               //{
-               DatabaseOperations DB = new DatabaseOperations(ctx);
-               DB.putInformation(DB, news);
-               Toast.makeText(getBaseContext(), "OK!! ", Toast.LENGTH_LONG).show();
-               //KEY_NEWS.setText("");
-               NEWS.setText("");
-               //}
+                   if (news == null){
+                       Toast.makeText(getBaseContext(), "Nicht ", Toast.LENGTH_LONG).show();
+                   }
+                   else {
+                       //if (!(Integer.parseInt(key_news)))
+                       //
+                       //   Toast.makeText(getBaseContext(),"nicht richtich",Toast.LENGTH_LONG).show();
+                       //   KEY_NEWS.setText("");
+                       //
+                       //else
+                       //{
+                       DatabaseOperations DB = new DatabaseOperations(ctx);
+                       DB.putInformation(DB, news);
+                       Toast.makeText(getBaseContext(), "OK!! ", Toast.LENGTH_LONG).show();
+                       //KEY_NEWS.setText("");
+                       NEWS.setText("");
+                   }
+               }
            }
-       }
-        );
-    }
-    public void endApp () {
-        OUT.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                finish();
-            }
-        }
         );
     }
 
     public void viewAll() {
         LISTE_ALLES.setOnClickListener(new View.OnClickListener() {
 
-               DatabaseOperations DB = new DatabaseOperations(ctx);
+               public DatabaseOperations DB = new DatabaseOperations(ctx);
                public void onClick(View v) {
                    Cursor C = DB.getAllData();
                    if (C.getCount() == 0) {
@@ -83,8 +79,15 @@ public class FirstActivity extends ActionBarActivity {
                    } else {
                        StringBuffer buffer = new StringBuffer();
                        while (C.moveToNext()) {
-                           buffer.append("Id: " + C.getString(0) + "\n");
-                           buffer.append("News: " + C.getString(1) + "\n\n");
+                           buffer.append("Id: " + C.getString(0));
+                           buffer.append("cat_news: " + C.getString(1) + "\n");
+                           buffer.append("date_news: " + C.getString(2) + "\n");
+                           buffer.append("news_title: " + C.getString(3) + "\n");
+                           buffer.append("news: " + C.getString(4) + "\n");
+                           buffer.append("flag_read: " + C.getString(5) + "\n");
+                           buffer.append("flag_delete: " + C.getString(6) + "\n");
+                           buffer.append("flag_remember: " + C.getString(7) + "\n");
+                           buffer.append("mark: " + C.getString(8) + "\n\n");
                        }
                        showMessage("Data", buffer.toString());
                    }
@@ -93,14 +96,28 @@ public class FirstActivity extends ActionBarActivity {
         );
     }
 
-            public void showMessage(String id, String news) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setCancelable(true);
-                builder.setTitle(id);
-                builder.setMessage(news);
-                builder.show();
-            }
-        }
+    public void showMessage(String id, String news) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(id);
+        builder.setMessage(news);
+        builder.show();
+    }
+    public void endApp () {
+        OUT.setOnClickListener(new View.OnClickListener() {
+                                   public void onClick(View v) {
+                                       finish();
+                                   }
+                               }
+        );
+    }
+    public void viewNews (View view){
+        Toast.makeText(getBaseContext(), "View News ", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this,NewsListActivity.class);
+        startActivity(intent);
+
+    }
+}
 /*      message_text = (EditText) findViewById(R.id.typing_message);
         String message = message_text.getText().toString();
         Intent intent = new Intent(this, SecondActivity.class);
